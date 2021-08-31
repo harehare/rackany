@@ -1,0 +1,14 @@
+schema: http://localhost:3000/graphql
+documents:
+  - ./graphql/**/query.graphql
+  - ./graphql/**/mutation.graphql
+generates:
+  lib/generated/client.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true
+      withRefetchFn: true
+      withMutationFn: true

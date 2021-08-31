@@ -1,0 +1,140 @@
+mutation signUp($input: SignUpInput!) {
+  signUp(input: $input) {
+    id
+    apiKey
+  }
+}
+
+mutation createApiKey($input: CreateApiKeyInput!) {
+  createApiKey(input: $input) {
+    id
+    name
+    apiKey
+    role
+  }
+}
+
+mutation revokeApiKey($input: RevokeApiKeyInput!) {
+  revokeApiKey(input: $input) {
+    id
+    name
+    apiKey
+    role
+  }
+}
+
+mutation createCollection($input: CollectionInput!) {
+  createCollection(input: { input: $input }) {
+    id
+    projectId
+    name
+    displayName
+    description
+  }
+}
+
+mutation updateCollection($input: CollectionInput!) {
+  updateCollection(input: { input: $input }) {
+    id
+    projectId
+    name
+    displayName
+    description
+  }
+}
+
+mutation deleteCollection($input: DeleteCollectionInput!) {
+  deleteCollection(input: $input) {
+    id
+    projectId
+    name
+    displayName
+    description
+  }
+}
+
+mutation saveField(
+  $projectId: ID!
+  $collectionId: ID!
+  $input: [RackFieldInput!]!
+) {
+  saveField(
+    input: { projectId: $projectId, collectionId: $collectionId, input: $input }
+  ) {
+    id
+    name
+    displayName
+    description
+    fieldType
+    order
+    sortable
+    stored
+    requiredField
+  }
+}
+
+mutation createProject($input: ProjectInput!) {
+  createProject(input: { input: $input }) {
+    id
+    name
+    displayName
+    description
+    collections {
+      id
+      name
+      displayName
+      description
+    }
+    userId
+    createdAt
+    updatedAt
+  }
+}
+
+mutation updateProject($input: ProjectInput!) {
+  updateProject(input: { input: $input }) {
+    id
+  }
+}
+
+mutation deleteProject($input: DeleteProjectInput!) {
+  deleteProject(input: $input) {
+    id
+    name
+    description
+  }
+}
+
+mutation createRackRow(
+  $projectId: ID!
+  $collectionId: ID!
+  $input: [RackRowItemInput!]!
+) {
+  createRackRow(
+    input: { projectId: $projectId, collectionId: $collectionId, input: $input }
+  ) {
+    id
+  }
+}
+
+mutation updateRackRow(
+  $projectId: ID!
+  $collectionId: ID!
+  $rackRowId: ID!
+  $input: [RackRowItemInput!]!
+) {
+  updateRackRow(
+    input: {
+      projectId: $projectId
+      collectionId: $collectionId
+      rackRowId: $rackRowId
+      input: $input
+    }
+  ) {
+    id
+  }
+}
+
+mutation deleteRackRow($input: DeleteRackRowInput!) {
+  deleteRackRow(input: $input)
+}

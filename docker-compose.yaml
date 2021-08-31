@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  web:
+    build: ./web
+    environment:
+      - NEXT_PUBLIC_AUTH0_DOMAIN
+      - NEXT_PUBLIC_AUTH0_CLIENT_ID
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+      - NEXT_PUBLIC_REDIRECT_URL=http://localhost:3000/project
+    ports:
+      - "3000:3000"
+    links:
+      - api
+    depends_on:
+      - api
+  api:
+    build: ./server
+    environment:
+      - AUTH0_DOMAIN
+      - AUTH0_AUDIENCE
+      - FIREBASE_PROJECT_ID
+      - FIREBASE_STORAGE_BUCKET_ID
+      - GOOGLE_APPLICATION_CREDENTIALS
+      - RAILS_LOG_TO_STDOUT=1
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/rackany
+      - REDIS_URL=redis://redis:6379
+      - PORT=8000
+      - RAILS_ENV=production
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - FIRESTORE_EMULATOR_HOST=firestore:8080
+      - FIRESTORE_PROJECT_ID=dummy-project-id
+    ports:
+      - "8000:8000"
+    links:
+      - db
+      - redis
+      - firestore
+    depends_on:
+      - db
+      - firestore
+      - redis
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    ports:
+      - "5432:5432"
+  firestore:
+    image: mtlynch/firestore-emulator
+    environment:
+      - FIRESTORE_PROJECT_ID=local-rackany
+      - PORT=8080
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"

@@ -1,0 +1,11 @@
+inherit_gem:
+  meowcop:
+    - config/rubocop.yml
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+MethodLength:
+  CountComments: false
+  Max: 40
+Metrics/AbcSize:
+  Max: 100

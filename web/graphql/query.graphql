@@ -1,0 +1,122 @@
+query collection($id: ID!, $projectId: ID!) {
+  collection(id: $id, projectId: $projectId) {
+    id
+    name
+    displayName
+    description
+    rackFields {
+      id
+      name
+      displayName
+      description
+      fieldType
+      order
+      sortable
+      stored
+      requiredField
+      collectionId
+      createdAt
+      updatedAt
+    }
+    defaultSortField
+    defaultSortDirection
+    projectId
+    createdAt
+    updatedAt
+  }
+}
+
+query project($id: ID!) {
+  project(id: $id) {
+    id
+    name
+    displayName
+    description
+    collections {
+      id
+      name
+      displayName
+      description
+    }
+    apiKeys {
+      id
+      name
+      apiKey
+      role
+    }
+    userId
+    createdAt
+    updatedAt
+  }
+}
+
+query projects {
+  projects {
+    id
+    name
+    displayName
+    description
+    collections {
+      id
+      name
+      displayName
+      description
+    }
+    userId
+    createdAt
+    updatedAt
+  }
+}
+
+query rackField($id: ID!, $projectId: ID!, $collectionId: ID!) {
+  rackField(id: $id, projectId: $projectId, collectionId: $collectionId) {
+    id
+    name
+    displayName
+    fieldType
+    description
+    order
+    sortable
+    stored
+    requiredField
+    createdAt
+    updatedAt
+  }
+}
+
+query rackRow($projectId: ID!, $collectionId: ID!, $rackRowId: ID!) {
+  rackRow(
+    projectId: $projectId
+    collectionId: $collectionId
+    rackRowId: $rackRowId
+  ) {
+    id
+    data
+    createdAt
+    updatedAt
+  }
+}
+
+query rackRows(
+  $projectId: ID!
+  $collectionId: ID!
+  $offset: Int = 0
+  $limit: Int = 30
+  $filters: [RackRowFilter!]
+  $orders: [RackRowOrder!]
+) {
+  total: rackRowsCount(projectId: $projectId, collectionId: $collectionId)
+  rackRows(
+    projectId: $projectId
+    collectionId: $collectionId
+    offset: $offset
+    limit: $limit
+    filters: $filters
+    orders: $orders
+  ) {
+    id
+    data
+    createdAt
+    updatedAt
+  }
+}

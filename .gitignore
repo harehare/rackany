@@ -1,0 +1,12 @@
+.history
+.env
+.envrc
+.vscode
+.DS_Store
+.firebaserc
+
+generated
+
+*.log
+
+firebase.json

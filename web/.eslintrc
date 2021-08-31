@@ -1,0 +1,4 @@
+{
+  "extends": ["next", "plugin:react-hooks/recommended"],
+  "plugins": ["import"]
+}

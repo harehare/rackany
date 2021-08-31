@@ -1,0 +1,44 @@
+source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+ruby '3.0.2'
+
+gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
+gem 'puma', '~> 5.0'
+gem 'bootsnap', '>= 1.4.4', require: false
+
+group :development, :test do
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'listen', '~> 3.3'
+  gem 'spring'
+  gem 'graphql_playground-rails'
+  gem 'rubocop'
+  gem "rspec-rails", "~> 5.0"
+  gem 'annotate'
+  gem 'meowcop'
+  gem 'steep', require: false
+  gem 'rbs_rails', require: false
+  gem 'sqlite3', '~> 1.4'
+end
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'graphql'
+gem 'graphql-batch'
+gem 'json-schema'
+gem "auth0", "~> 5.1"
+gem "dotenv-rails", "~> 2.7"
+gem "jwt", "~> 2.2"
+gem "rack-cors", "~> 1.1"
+gem 'google-cloud-firestore'
+gem 'google-cloud-storage'
+# gem 'prometheus_exporter'
+gem 'dry-monads'
+gem 'rack-throttle'
+gem 'redis'
+gem 'rqrcode'
+gem 'chunky_png'
+gem 'barby'
+
+gem "redcarpet", "~> 3.5"
+gem 'stackprof'
+gem 'pg', group: :production
