@@ -17,7 +17,7 @@ $ npm run dev
 
 Open http://localhost:8000 and start modifying the code in /web/src.
 
-### Requirements1
+### Requirements
 
 **Database:**
 
