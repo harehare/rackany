@@ -34,7 +34,7 @@ export function useApiDocs({ projectId, collectionId }: Props): [{}, Error] {
   const { data, error } = useSWR(
     collection
       ? [
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/${
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/${
             collection.collection.name
           }/docs?project_id=${projectId as string}`,
           token,

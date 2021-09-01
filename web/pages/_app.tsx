@@ -6,10 +6,10 @@ import { AuthorizedApolloProvider } from "lib/authorized-apollo-client";
 import { ModalProvider } from "react-modal-hook";
 import { ToastContainer } from "react-toastify";
 import NextNprogress from "nextjs-progressbar";
-import "styles/globals.css";
 import "swagger-ui-react/swagger-ui.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "styles/tabs.css";
+import "styles/globals.css";
 import ContextProvider from "lib/context";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

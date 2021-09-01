@@ -12,7 +12,7 @@ module ReadWithAuthInteractor
 
     user_id = claims.value!.first['sub'] if claims.present?
 
-    validates(user_id, params[:project_id], params[:collection_name]).bind do |args|
+    token_validates(user_id, params[:project_id], params[:collection_name]).bind do |args|
       args => {collection:}
       Try { execute(params, collection, fields(collection.id)) }.bind do |result|
         Success(new(result))
@@ -20,7 +20,7 @@ module ReadWithAuthInteractor
     end
   end
 
-  def validates(user_id, project_id, collection_name)
+  def token_validates(user_id, project_id, collection_name)
     collection = Collection.find_by(project_id: project_id, name: collection_name)
 
     unless collection.name == collection_name

@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   end
 
   draw :api
+  draw :admin_api
 end

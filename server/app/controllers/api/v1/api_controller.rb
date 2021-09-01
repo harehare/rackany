@@ -147,7 +147,7 @@ module Api
       end
 
       def docs
-        case DocsInteractor.call(request, params)
+        case DocsInteractor.call_api(params, request.headers)
         in Success(v)
           render json: v.data
         in Failure(e)

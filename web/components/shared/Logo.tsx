@@ -27,7 +27,7 @@ const Text = styled.div`
 const Logo: React.VFC = () => (
   <Link href="/" passHref>
     <Container>
-      <Image src="/logo.svg" alt="logo" />
+      <Image src="/logo_64.svg" alt="logo" />
       <Text>rackany</Text>
     </Container>
   </Link>

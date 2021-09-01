@@ -1,5 +1,6 @@
 class DocsInteractor < Interactor
   class << self
+    include ReadInteractor
     include ReadWithAuthInteractor
 
     SWAGGER_DOCS = [

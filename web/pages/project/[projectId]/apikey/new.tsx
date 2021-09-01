@@ -31,7 +31,7 @@ const New: React.VFC = () => {
       errorNotify(`Failed to create api key`);
     });
 
-    await router.replace(`/project/${projectId}`);
+    await router.replace(`/project/${projectId}/settings`);
     successNotify(`Successfully create api key`);
   };
 

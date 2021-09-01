@@ -3,7 +3,7 @@
 Build your own database
 
 
-Define arbitrary fields and expose a restful api. no coding required.
+Define arbitrary fields and publish a restful api. no coding required.
 
 ![image](img/rackany.jpeg)
 

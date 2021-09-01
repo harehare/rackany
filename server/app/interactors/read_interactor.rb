@@ -12,7 +12,7 @@ module ReadInteractor
   end
 
   def call_api(params, headers)
-    validates(bearer_token(headers), params[:collection_name]).bind do |args|
+    api_key_validates(bearer_token(headers), params[:collection_name]).bind do |args|
       args => {collection:}
       Try { execute(params, collection, fields(collection.id)) }.to_result.bind do |r|
         Success(new(r))
@@ -20,7 +20,7 @@ module ReadInteractor
     end
   end
 
-  def validates(api_key, collection_name)
+  def api_key_validates(api_key, collection_name)
     api_key_info = ApiKey.find_by(api_key: api_key)
 
     if api_key_info.nil?
@@ -34,6 +34,10 @@ module ReadInteractor
     end
 
     collection = Collection.find_by(project_id: api_key_info.project_id, name: collection_name)
+
+    if collection.nil?
+      return Failure(Errors::AuthenticationError)
+    end
 
     unless collection.name == collection_name
       return Failure(Errors::AuthenticationError)
@@ -50,8 +54,8 @@ module ReadInteractor
   end
 
   def bearer_token(headers)
-    pattern = /^Bearer /
-    header  = headers['Authorization']
+    pattern = /^bearer /i
+    header  = headers['authorization'] || headers['Authorization']
     header.gsub(pattern, '') if header && header.match(pattern)
   end
 end
