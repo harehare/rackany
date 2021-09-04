@@ -14,7 +14,7 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation_warnings = []
   config.log_formatter = ::Logger::Formatter.new
 
-  config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'],
+  config.cache_store = :redis_cache_store, { url: ENV['REDIS_TLS_URL'] || ENV['REDIS_URL'],
     connect_timeout:    30,
     read_timeout:       0.2,
     write_timeout:      0.2,
