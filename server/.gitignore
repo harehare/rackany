@@ -34,3 +34,5 @@ vendor/rbs
 
 .env
 *.log
+
+.vercel
