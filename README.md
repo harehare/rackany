@@ -7,6 +7,7 @@ Define arbitrary fields and publish a restful api. no coding required.
 
 ![image](img/rackany.jpeg)
 
+
 ## Getting Started
 
 ### Development
@@ -33,6 +34,10 @@ Open http://localhost:8000 and start modifying the code in /web/src.
 - [ ] Add user management functions
 - [ ] Add full text search
 - [ ] Add Document
+
+### Try live demo
+
+You can access the demo [here](https://rackany.vercel.app/project).
 
 ## License
 
