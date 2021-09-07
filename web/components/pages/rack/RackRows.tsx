@@ -2,13 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useTable, useSortBy } from "react-table";
-import {
-  RackRow,
-  RackField,
-  Field,
-  RackRowOrder,
-  RackRowFilter,
-} from "lib/generated/client";
+import { RackRow, RackField, Field, RackRowFilter } from "lib/generated/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
