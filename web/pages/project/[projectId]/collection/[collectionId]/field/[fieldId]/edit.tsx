@@ -9,7 +9,6 @@ import { usePageDispatch } from "lib/context/PageContext";
 import { useCollectionQuery, useSaveFieldMutation } from "lib/generated/client";
 import { toError } from "graphql/error/error";
 import { errorNotify, successNotify } from "lib/notify";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const Edit: React.VFC = () => {
   const router = useRouter();
