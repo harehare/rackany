@@ -4,7 +4,6 @@ import {
   InMemoryCache,
   createHttpLink,
   ApolloProvider,
-  ApolloLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -33,16 +32,18 @@ export const AuthorizedApolloProvider: React.FC = ({ children }) => {
     return { auth0Token: idToken.__raw };
   });
 
-  const authLink = setContext((_, { headers, auth0Token }) =>
-    auth0Token
-      ? {
-          headers: {
-            ...headers,
-            authorization: auth0Token ? `Bearer ${auth0Token}` : "",
-          },
-        }
-      : null
-  );
+  const authLink = setContext((_, { headers, auth0Token }) => {
+    if (!auth0Token) {
+      throw new Error("not authenticated");
+    }
+
+    return {
+      headers: {
+        ...headers,
+        authorization: `Bearer ${auth0Token}`,
+      },
+    };
+  });
 
   const client = new ApolloClient({
     link: retryLink
@@ -51,6 +52,7 @@ export const AuthorizedApolloProvider: React.FC = ({ children }) => {
       .concat(authLink)
       .concat(httpLink),
     cache: new InMemoryCache(),
+    connectToDevTools: process.env.NODE_ENV !== "production",
   });
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>;

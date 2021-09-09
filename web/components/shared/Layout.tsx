@@ -33,17 +33,13 @@ const Layout: React.VFC<Props> = ({ children }) => {
   const { projectId } = router.query;
   const page = usePageState();
 
-  const [
-    loadProject,
-    { called: calledProject, loading: loadingProject, data: project },
-  ] = useProjectLazyQuery({ ssr: false });
+  const [loadProject, { called: calledProject, data: project }] =
+    useProjectLazyQuery();
 
-  const [
-    loadCollection,
-    { called: calledCollection, loading: loadingCollection, data: collection },
-  ] = useCollectionLazyQuery({ ssr: false });
+  const [loadCollection, { called: calledCollection, data: collection }] =
+    useCollectionLazyQuery();
 
-  if (isAuthenticated && !calledProject && !loadingProject && projectId) {
+  if (isAuthenticated && !calledProject && projectId && !project) {
     loadProject({
       variables: {
         id: projectId as string,
@@ -54,9 +50,9 @@ const Layout: React.VFC<Props> = ({ children }) => {
   if (
     isAuthenticated &&
     !calledCollection &&
-    !loadingCollection &&
     projectId &&
-    page.collection
+    page.collection &&
+    !collection
   ) {
     loadCollection({
       variables: {

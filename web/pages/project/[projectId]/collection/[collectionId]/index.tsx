@@ -37,8 +37,7 @@ const Index: React.VFC = () => {
   const pageNo =
     page && !isNaN(parseInt(page as string)) ? parseInt(page as string) : 1;
   const pageSize = 30;
-  const { loading, error, data } = useCollectionQuery({
-    ssr: false,
+  const { error, loading, data } = useCollectionQuery({
     variables: {
       id: collectionId as string,
       projectId: projectId as string,
@@ -47,7 +46,7 @@ const Index: React.VFC = () => {
   const [
     loadRackRows,
     { loading: lazyRowsLoading, error: lazyRowsError, data: lazyRackRows },
-  ] = useRackRowsLazyQuery({ ssr: false });
+  ] = useRackRowsLazyQuery();
 
   const [saveField] = useSaveFieldMutation();
   const handleSaveChanges = useCallback(
@@ -70,12 +69,12 @@ const Index: React.VFC = () => {
         },
       })
         .then(async () => {
+          successNotify(`Successfully updated fields`);
           await router.replace(
             `/project/${projectId as string}/collection/${
               collectionId as string
             }`
           );
-          successNotify(`Successfully updated fields`);
         })
         .catch(() => {
           errorNotify(`Failed to updated fields`);
