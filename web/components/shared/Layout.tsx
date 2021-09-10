@@ -28,57 +28,13 @@ const Main = styled.main`
 
 const Layout: React.VFC<Props> = ({ children }) => {
   useRequiredLogin({ redirectUri: null });
-  const { isAuthenticated } = useAuth0();
-  const router = useRouter();
-  const { projectId } = router.query;
   const page = usePageState();
-
-  const [loadProject, { called: calledProject, data: project }] =
-    useProjectLazyQuery();
-
-  const [loadCollection, { called: calledCollection, data: collection }] =
-    useCollectionLazyQuery();
-
-  if (isAuthenticated && !calledProject && projectId && !project) {
-    loadProject({
-      variables: {
-        id: projectId as string,
-      },
-    });
-  }
-
-  if (
-    isAuthenticated &&
-    !calledCollection &&
-    projectId &&
-    page.collection &&
-    !collection
-  ) {
-    loadCollection({
-      variables: {
-        id:
-          typeof page.collection === "string"
-            ? page.collection
-            : page.collection?.id,
-        projectId: projectId as string,
-      },
-    });
-  }
 
   return (
     <Container>
       <Header
-        // @ts-expect-error
-        project={
-          typeof page.project !== "string" && page.project
-            ? page.project
-            : project?.project
-        }
-        collection={
-          typeof page.collection !== "string" && page.collection
-            ? page.collection
-            : collection?.collection
-        }
+        project={page.project}
+        collection={page.collection}
         page={page.page}
       />
       <Main>{children}</Main>

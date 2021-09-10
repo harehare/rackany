@@ -1,4 +1,10 @@
 query collection($id: ID!, $projectId: ID!) {
+  project(id: $projectId) {
+    id
+    name
+    displayName
+    description
+  }
   collection(id: $id, projectId: $projectId) {
     id
     name

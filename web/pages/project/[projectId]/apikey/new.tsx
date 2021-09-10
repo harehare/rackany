@@ -4,16 +4,22 @@ import NewApiKey from "components/pages/project/apiKeys/NewApiKey";
 import Title from "components/shared/Title";
 import { useRouter } from "next/router";
 import { usePageDispatch } from "lib/context/PageContext";
-import { useCreateApiKeyMutation } from "lib/generated/client";
+import { useCreateApiKeyMutation, useProjectQuery } from "lib/generated/client";
 import { errorNotify, successNotify } from "lib/notify";
 
 const New: React.VFC = () => {
   const router = useRouter();
   const { projectId } = router.query;
+  const { data } = useProjectQuery({
+    variables: {
+      id: projectId as string,
+    },
+  });
   const [createApiKey, _] = useCreateApiKeyMutation();
   const setPage = usePageDispatch();
   setPage({
-    project: projectId as string,
+    // @ts-expect-error
+    project: data?.project,
     collection: null,
     page: "CreateApiKey",
   });

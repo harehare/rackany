@@ -29,8 +29,9 @@ const New: React.VFC = () => {
 
   useEffect(() => {
     setPage({
-      project: projectId as string,
-      collection: collection?.collection.name,
+      // @ts-expect-error
+      project: collection?.project,
+      collection: collection?.collection,
       page: "NewField",
     });
   });

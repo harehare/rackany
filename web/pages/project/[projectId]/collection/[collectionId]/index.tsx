@@ -120,7 +120,8 @@ const Index: React.VFC = () => {
 
   useEffect(() => {
     setPage({
-      project: projectId as string,
+      // @ts-expect-error
+      project: data?.project,
       collection: data?.collection,
       page: "Collection",
     });

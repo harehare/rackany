@@ -35,7 +35,8 @@ const Settings: React.VFC = () => {
 
   useEffect(() => {
     setPage({
-      project: projectId as string,
+      // @ts-expect-error
+      project: collection?.project,
       collection: collection?.collection,
       page: "CollectionSettings",
     });
