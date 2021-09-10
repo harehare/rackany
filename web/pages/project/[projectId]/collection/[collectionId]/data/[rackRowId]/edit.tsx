@@ -47,7 +47,8 @@ const Edit: React.VFC = () => {
   const setPage = usePageDispatch();
   useEffect(() => {
     setPage({
-      project: projectId as string,
+      // @ts-expect-error
+      project: collection?.project,
       collection: collection?.collection,
       page: "EditRackRow",
     });

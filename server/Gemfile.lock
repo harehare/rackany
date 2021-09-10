@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/ruby-debug/debase.git
+  revision: 5780803819f16190ce50ddfdad5775acf8f95fd1
+  specs:
+    debase (0.2.5.beta2)
+      debase-ruby_core_source (>= 0.10.12)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -80,6 +87,7 @@ GEM
     chunky_png (1.4.0)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
+    debase-ruby_core_source (0.10.12)
     declarative (0.0.20)
     diff-lcs (1.4.4)
     digest-crc (0.6.4)
@@ -319,6 +327,8 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.11.0)
       parser (>= 3.0.1.1)
+    ruby-debug-ide (0.7.2)
+      rake (>= 0.8.1)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     signet (0.15.0)
@@ -373,6 +383,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   chunky_png
+  debase!
   dotenv-rails (~> 2.7)
   dry-monads
   google-cloud-firestore
@@ -395,6 +406,7 @@ DEPENDENCIES
   rqrcode
   rspec-rails (~> 5.0)
   rubocop
+  ruby-debug-ide
   spring
   sqlite3 (~> 1.4)
   stackprof

@@ -526,7 +526,7 @@ export type CollectionQueryVariables = Exact<{
 }>;
 
 
-export type CollectionQuery = { __typename?: 'Query', collection: { __typename?: 'Collection', id: string, name?: Maybe<string>, displayName?: Maybe<string>, description?: Maybe<string>, defaultSortField: string, defaultSortDirection: OrderDirection, projectId: string, createdAt: any, updatedAt: any, rackFields?: Maybe<Array<{ __typename?: 'RackField', id: string, name: string, displayName: string, description?: Maybe<string>, fieldType: Field, order: number, sortable: boolean, stored?: Maybe<boolean>, requiredField?: Maybe<boolean>, collectionId: string, createdAt: any, updatedAt: any }>> } };
+export type CollectionQuery = { __typename?: 'Query', project: { __typename?: 'Project', id: string, name?: Maybe<string>, displayName?: Maybe<string>, description?: Maybe<string> }, collection: { __typename?: 'Collection', id: string, name?: Maybe<string>, displayName?: Maybe<string>, description?: Maybe<string>, defaultSortField: string, defaultSortDirection: OrderDirection, projectId: string, createdAt: any, updatedAt: any, rackFields?: Maybe<Array<{ __typename?: 'RackField', id: string, name: string, displayName: string, description?: Maybe<string>, fieldType: Field, order: number, sortable: boolean, stored?: Maybe<boolean>, requiredField?: Maybe<boolean>, collectionId: string, createdAt: any, updatedAt: any }>> } };
 
 export type ProjectQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -1054,6 +1054,12 @@ export type DeleteRackRowMutationResult = Apollo.MutationResult<DeleteRackRowMut
 export type DeleteRackRowMutationOptions = Apollo.BaseMutationOptions<DeleteRackRowMutation, DeleteRackRowMutationVariables>;
 export const CollectionDocument = gql`
     query collection($id: ID!, $projectId: ID!) {
+  project(id: $projectId) {
+    id
+    name
+    displayName
+    description
+  }
   collection(id: $id, projectId: $projectId) {
     id
     name

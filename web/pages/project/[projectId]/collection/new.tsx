@@ -7,18 +7,25 @@ import { usePageDispatch } from "lib/context/PageContext";
 import {
   ProjectDocument,
   useCreateCollectionMutation,
+  useProjectQuery,
 } from "lib/generated/client";
 import { errorNotify, successNotify } from "lib/notify";
 
 const New: React.VFC = () => {
   const router = useRouter();
   const { projectId } = router.query;
+  const { data } = useProjectQuery({
+    variables: {
+      id: projectId as string,
+    },
+  });
   const [createCollection] = useCreateCollectionMutation();
   const setPage = usePageDispatch();
 
   useEffect(() => {
     setPage({
-      project: projectId as string,
+      // @ts-expect-error
+      project: data?.project,
       collection: null,
       page: "NewCollection",
     });

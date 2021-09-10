@@ -10,8 +10,8 @@ interface Props {
 }
 
 interface PageState {
-  project?: Project | string;
-  collection?: Collection | string;
+  project?: Project;
+  collection?: Collection;
   page: Page;
 }
 

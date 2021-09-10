@@ -27,7 +27,8 @@ const Edit: React.VFC = () => {
   const [saveFields, canSaveFields] = useSaveFieldMutation();
   const setPage = usePageDispatch();
   setPage({
-    project: projectId as string,
+    // @ts-expect-error
+    project: collection?.project,
     collection: collection?.collection,
     page: "EditField",
   });

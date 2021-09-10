@@ -19,6 +19,8 @@ group :development, :test do
   gem 'steep', require: false
   gem 'rbs_rails', require: false
   gem 'sqlite3', '~> 1.4'
+  gem "ruby-debug-ide"
+  gem "debase", github: "ruby-debug/debase"
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

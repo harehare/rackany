@@ -42,17 +42,19 @@ class RackField < ApplicationRecord
     where(collection_name: collection_name).order(:order)
   }
 
-  scope :field_type , lambda { |collection_id|
+  scope :field_type , lambda { |params|
+    collection_id = params[:collection_id]
     Rails.cache.fetch("collection/#{collection_id}/fields/field_type", expires_in: 5.minutes) do
-      RackField.where(collection_id).each_with_object({}) do |field, arr|
+      where(params).each_with_object({}) do |field, arr|
         arr[field.id] = field.field_type
       end
     end
   }
 
-  scope :name_field_type , lambda { |collection_id|
+  scope :name_field_type , lambda { |params|
+    collection_id = params[:collection_id]
     Rails.cache.fetch("collection/#{collection_id}/fields/name_field_type", expires_in: 5.minutes) do
-      RackField.where(collection_id).each_with_object({}) do |field, arr|
+      where(collection_id: collection_id).each_with_object({}) do |field, arr|
         arr[field.name] = field.field_type
       end
     end
@@ -61,12 +63,12 @@ class RackField < ApplicationRecord
   def self.convert(field_type, data)
     case field_type
     in 'NUMBER'
-      /[0-9]+/.match(data) &to_s.to_i
+      /[0-9]+/.match(data) &.to_s.to_i
     in 'LOCATION'
       tokens = data.split(',')
       [tokens[0], tokens[1]] if tokens.length == 2
     in 'EMAIL'
-      /^\S+@\S+\.\S+$/.match(data) &to_s
+      /^\S+@\S+\.\S+$/.match(data) &.to_s
     in 'CHECKBOX'
       data == 'true'
     in 'LIST'
