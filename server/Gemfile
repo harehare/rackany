@@ -16,8 +16,6 @@ group :development, :test do
   gem "rspec-rails", "~> 5.0"
   gem 'annotate'
   gem 'meowcop'
-  gem 'steep', require: false
-  gem 'rbs_rails', require: false
   gem 'sqlite3', '~> 1.4'
   gem "ruby-debug-ide"
   gem "debase", github: "ruby-debug/debase"

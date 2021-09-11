@@ -1,3 +1,6 @@
+require 'set'
+require 'dry/monads'
+
 module Domain
   module Values
     class Filter < Struct.new(:name, :operator, :value)

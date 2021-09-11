@@ -14,6 +14,7 @@ module ProjectHelpers
     result = ServerSchema.execute(mutation_string, context: { current_user_id: user_id },
                                                    variables: {
                                                      input: { name: 'test',
+                                                              displayName: "displayName",
                                                               description: 'test1' }
                                                    })
     if result['errors'].present?

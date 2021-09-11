@@ -10,11 +10,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { RetryLink } from "@apollo/client/link/retry";
 import { useAuthDispatch } from "lib/context/AuthContext";
 import ApolloLinkTimeout from "apollo-link-timeout";
+import router, { useRouter } from "next/router";
 
 export const AuthorizedApolloProvider: React.FC = ({ children }) => {
   const [token, setToken] = React.useState<string>("");
   const setAuth = useAuthDispatch();
   const { isAuthenticated, getIdTokenClaims } = useAuth0();
+  const router = useRouter();
   const timeoutLink = new ApolloLinkTimeout(10000);
   const httpLink = createHttpLink({
     uri: `${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql`,
@@ -37,6 +39,9 @@ export const AuthorizedApolloProvider: React.FC = ({ children }) => {
       throw new Error("not authenticated");
     }
 
+    if (!router.isReady) {
+      throw new Error("not ready");
+    }
     return {
       headers: {
         ...headers,
