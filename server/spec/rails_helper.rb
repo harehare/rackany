@@ -1,6 +1,6 @@
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
-ENV["FIRESTORE_EMULATOR_HOST"] = "127.0.0.1:8080"
+ENV["FIRESTORE_EMULATOR_HOST"] = "localhost:8080"
 
 require File.expand_path('../config/environment', __dir__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?

@@ -1,3 +1,5 @@
+require 'dry/monads'
+
 module Domain
   module Values
     class Order < Struct.new(:name, :direction)

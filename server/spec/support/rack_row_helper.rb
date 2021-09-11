@@ -4,7 +4,6 @@ module RackFieldHelpers
       mutation createRackRow ($projectId: ID!, $collectionId: ID!, $input: [RackRowItemInput!]!){
         createRackRow(input: { projectId: $projectId, collectionId: $collectionId, input: $input}) {
           id
-          collectionId
           data
         }
       }

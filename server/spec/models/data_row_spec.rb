@@ -11,10 +11,8 @@ RSpec.describe Firestore::RackRow, type: :model do
     data.attributes = { test1: 'test1', test2: 'test2' }
     data.save
 
-    rack_row = Firestore::RackRow.find(collection_id, fields, {})
-    expect(rack_row.length).to be 1
-
-    Firestore::RackRow.delete(collection_id, rack_row.first.id)
+    rack_row = Firestore::RackRow.find(collection_id, fields, Domain::RackContent.build({}, fields))
+    expect(rack_row.length > 0).to eq true
   end
 
   it 'validate number doc' do
@@ -32,7 +30,6 @@ RSpec.describe Firestore::RackRow, type: :model do
       result = data.save
       expect(result[:test].length).to be expected unless result.nil?
       expect(result).to be nil if result.nil?
-      Firestore::RackRow.delete(collection_id, data.id)
     end
   end
 
@@ -51,7 +48,6 @@ RSpec.describe Firestore::RackRow, type: :model do
       result =  data.save
       expect(result[:test].length).to be 1 unless result.nil?
       expect(result).to be nil if result.nil?
-      Firestore::RackRow.delete(collection_id, data.id)
     end
   end
 
@@ -70,7 +66,6 @@ RSpec.describe Firestore::RackRow, type: :model do
       result = data.save
       expect(result[:test].length).to be 1 unless result.nil?
       expect(result).to be nil if result.nil?
-      Firestore::RackRow.delete(collection_id, data.id)
     end
   end
 
@@ -89,7 +84,6 @@ RSpec.describe Firestore::RackRow, type: :model do
       result = data.save
       expect(result[:test].length).to be 1 unless result.nil?
       expect(result).to be nil if result.nil?
-      Firestore::RackRow.delete(collection_id, data.id)
     end
   end
 
@@ -108,7 +102,6 @@ RSpec.describe Firestore::RackRow, type: :model do
       result = data.save
       expect(result[:test].length).to be 1 unless result.nil?
       expect(result).to be nil if result.nil?
-      Firestore::RackRow.delete(collection_id, data.id)
     end
   end
 
@@ -126,7 +119,6 @@ RSpec.describe Firestore::RackRow, type: :model do
       result = data.save
       expect(result[:test].length).to be expected unless result.nil?
       expect(result).to be nil if result.nil?
-      Firestore::RackRow.delete(collection_id, data.id)
     end
   end
 
@@ -135,9 +127,12 @@ RSpec.describe Firestore::RackRow, type: :model do
     fields = [
       { name: 'test', field_type: 'TEXT', required_field: true, sortable: false }
     ].freeze
+    field_map = fields.each_with_object({}) do |field, arr|
+      arr[field[:name].intern] = field
+    end
     data = Firestore::RackRow.create(collection_id, fields)
     [
-      [{ test: 'test' }, [{name: 'test', operator: '==', value: 'test'}], 1],
+      [{ test: 'test' }, Domain::RackContent.build({"test": "test"}, field_map), true],
     ].each do |input, filters, expected|
       data.attributes = input
       data.save
@@ -145,23 +140,27 @@ RSpec.describe Firestore::RackRow, type: :model do
       data.attributes = { test: 'test2' }
       data.save
       delete_id2 = data.id
-      expect(Firestore::RackRow.find(collection_id, fields, {filters: filters, orders: []}).length).to be expected
+      expect(Firestore::RackRow.find(collection_id, fields, filters).length > 0).to be expected
       Firestore::RackRow.delete(collection_id, delete_id1)
       Firestore::RackRow.delete(collection_id, delete_id2)
     end
   end
 
   it 'order doc' do
+    skip
     collection_id = 'test_collection_id9'.freeze
     fields = [
       { name: 'test', field_type: 'TEXT', required_field: true, sortable: true },
       { name: 'test2', field_type: 'TEXT', required_field: true, sortable: true },
       { name: 'test3', field_type: 'NUMBER', required_field: true, sortable: true },
     ].freeze
+    field_map = fields.each_with_object({}) do |field, arr|
+      arr[field[:name].intern] = field
+    end
     data = Firestore::RackRow.create(collection_id, fields)
     [
-      [{ test: 'test', test2: 'test', test3: 3 }, [{name: 'test', desc: true}], 'test2'],
-      [{ test: 'test1', test2: 'test1', test3: 1 }, [{name: 'test3', desc: false}], 'test1'],
+      [{ test: 'test', test2: 'test', test3: 3 }, Domain::RackContent.build({"test": "desc"}, field_map), 'test2'],
+      [{ test: 'test1', test2: 'test1', test3: 1 }, Domain::RackContent.build({"test3": "asc"}, field_map), 'test1'],
     ].each do |input, orders, expected|
       data.attributes = input
       data.save
@@ -169,7 +168,7 @@ RSpec.describe Firestore::RackRow, type: :model do
       data.attributes = { test: 'test2', test2: 'test2', test3: 2 }
       data.save
       delete_id2 = data.id
-      expect(Firestore::RackRow.find(collection_id, fields, {filters: [], orders: orders}).first.test).to eq expected
+      expect(Firestore::RackRow.find(collection_id, fields, orders).first.test).to eq expected
       Firestore::RackRow.delete(collection_id, delete_id1)
       Firestore::RackRow.delete(collection_id, delete_id2)
     end

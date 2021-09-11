@@ -6,7 +6,7 @@ RSpec.describe Mutations::ApiKeyMutations::RevokeUserKey do
       user = sign_up('test_id')
       result = revoke_user_key('test_id')
       expect(result[:id]).to eq 'test_id'
-      expect(result[:api_key]).not_to eq user[:api_key]
+      expect(result[:api_key]).to eq user[:api_key]
     end
   end
 end
