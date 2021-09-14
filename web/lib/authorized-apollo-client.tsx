@@ -10,7 +10,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { RetryLink } from "@apollo/client/link/retry";
 import { useAuthDispatch } from "lib/context/AuthContext";
 import ApolloLinkTimeout from "apollo-link-timeout";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 export const AuthorizedApolloProvider: React.FC = ({ children }) => {
   const [token, setToken] = React.useState<string>("");

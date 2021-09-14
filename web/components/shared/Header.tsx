@@ -19,6 +19,7 @@ interface BreadcrumbProps {
   project?: Project;
   collection?: Collection;
   page: Page;
+  handleHomeClick: () => void;
   handleProjectClick: () => void;
   handleCollectionClick: () => void;
 }
@@ -119,183 +120,208 @@ const BreadcrumbList: React.VFC<BreadcrumbProps> = ({
   page,
   project,
   collection,
+  handleHomeClick,
   handleProjectClick,
   handleCollectionClick,
 }) => {
-  switch (page) {
-    case "Index":
-      return <></>;
-    case "CreateApiKey":
-      return (
-        <Breadcrumb>
-          {project ? (
-            <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          <Text>{"Create API Key"}</Text>
-        </Breadcrumb>
-      );
-    case "ProjectList":
-      return <></>;
-    case "Project":
-      return (
-        <Breadcrumb>
-          {project ? (
-            <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-        </Breadcrumb>
-      );
-    case "NewProject":
-      return <></>;
-    case "ProjectSettings":
-      return (
-        <Breadcrumb>
-          {project ? (
-            <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          <Text>{"Settings"}</Text>
-        </Breadcrumb>
-      );
-    case "NewCollection":
-      return (
-        <Breadcrumb>
-          {project ? (
-            <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          <Text>{"New Collection"}</Text>
-        </Breadcrumb>
-      );
-    case "Collection":
-      return (
-        <Breadcrumb>
-          {project ? (
-            <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          {collection ? <Text>{collection.name}</Text> : <></>}
-        </Breadcrumb>
-      );
-    case "CollectionSettings":
-      return (
-        <Breadcrumb>
-          {project ? (
-            <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          {collection ? (
-            <LinkText onClick={handleCollectionClick}>
-              {collection.name}
-            </LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          {<Text>{"Settings"}</Text>}
-        </Breadcrumb>
-      );
-    case "NewField":
-      return (
-        <Breadcrumb>
-          {project ? (
-            <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          {collection ? (
-            <LinkText onClick={handleCollectionClick}>
-              {collection.name}
-            </LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          {<Text>{"New Field"}</Text>}
-        </Breadcrumb>
-      );
-    case "EditField":
-      return (
-        <Breadcrumb>
-          {project ? (
-            <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          {collection ? (
-            <LinkText onClick={handleCollectionClick}>
-              {collection.name}
-            </LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          {<Text>{"Edit Field"}</Text>}
-        </Breadcrumb>
-      );
-    case "NewRackRow":
-      return (
-        <Breadcrumb>
-          {project ? (
-            <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          {collection ? (
-            <LinkText onClick={handleCollectionClick}>
-              {collection.name}
-            </LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          {<Text>{"New Data"}</Text>}
-        </Breadcrumb>
-      );
-    case "EditRackRow":
-      return (
-        <Breadcrumb>
-          {project ? (
-            <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          {collection ? (
-            <LinkText onClick={handleCollectionClick}>
-              {collection.name}
-            </LinkText>
-          ) : (
-            <BreadcrumbLoading />
-          )}
-          <BreadcrumbArrow />
-          {<Text>{"Edit Data"}</Text>}
-        </Breadcrumb>
-      );
-    default:
-      return <></>;
-  }
+  const rest = () => {
+    switch (page) {
+      case "Index":
+        return <></>;
+      case "CreateApiKey":
+        return (
+          <>
+            <BreadcrumbArrow />
+            {project ? (
+              <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            <Text>{"Create API Key"}</Text>
+          </>
+        );
+      case "ProjectList":
+        return <></>;
+      case "Project":
+        return (
+          <>
+            <BreadcrumbArrow />
+            {project ? (
+              <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+          </>
+        );
+      case "NewProject":
+        return <></>;
+      case "ProjectSettings":
+        return (
+          <>
+            <BreadcrumbArrow />
+            {project ? (
+              <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            <Text>{"Settings"}</Text>
+          </>
+        );
+      case "NewCollection":
+        return (
+          <>
+            <BreadcrumbArrow />
+            {project ? (
+              <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            <Text>{"New Collection"}</Text>
+          </>
+        );
+      case "Collection":
+        return (
+          <>
+            <BreadcrumbArrow />
+            {project ? (
+              <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            {collection ? <Text>{collection.name}</Text> : <></>}
+          </>
+        );
+      case "CollectionSettings":
+        return (
+          <>
+            <BreadcrumbArrow />
+            {project ? (
+              <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            {collection ? (
+              <LinkText onClick={handleCollectionClick}>
+                {collection.name}
+              </LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            {<Text>{"Settings"}</Text>}
+          </>
+        );
+      case "NewField":
+        return (
+          <>
+            <BreadcrumbArrow />
+            {project ? (
+              <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            {collection ? (
+              <LinkText onClick={handleCollectionClick}>
+                {collection.name}
+              </LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            {<Text>{"New Field"}</Text>}
+          </>
+        );
+      case "EditField":
+        return (
+          <>
+            <BreadcrumbArrow />
+            {project ? (
+              <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            {collection ? (
+              <LinkText onClick={handleCollectionClick}>
+                {collection.name}
+              </LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            {<Text>{"Edit Field"}</Text>}
+          </>
+        );
+      case "NewRackRow":
+        return (
+          <>
+            <BreadcrumbArrow />
+            {project ? (
+              <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            {collection ? (
+              <LinkText onClick={handleCollectionClick}>
+                {collection.name}
+              </LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            {<Text>{"New Data"}</Text>}
+          </>
+        );
+      case "EditRackRow":
+        return (
+          <>
+            <BreadcrumbArrow />
+            {project ? (
+              <LinkText onClick={handleProjectClick}>{project.name}</LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            {collection ? (
+              <LinkText onClick={handleCollectionClick}>
+                {collection.name}
+              </LinkText>
+            ) : (
+              <BreadcrumbLoading />
+            )}
+            <BreadcrumbArrow />
+            {<Text>{"Edit Data"}</Text>}
+          </>
+        );
+      default:
+        return <></>;
+    }
+  };
+
+  return (
+    <Breadcrumb>
+      <LinkText onClick={handleHomeClick}>{"Home"}</LinkText>
+      {rest()}
+    </Breadcrumb>
+  );
 };
 
 const Header: React.VFC<Props> = ({ project, collection, page }) => {
   const router = useRouter();
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
+
+  const handleHomeClick = useCallback(() => {
+    router.push(`/project`);
+  }, [router]);
+
   const handleProjectClick = useCallback(() => {
     router.push(`/project/${project.id}`);
   }, [router, project]);
@@ -311,6 +337,7 @@ const Header: React.VFC<Props> = ({ project, collection, page }) => {
         <BreadcrumbList
           project={project}
           collection={collection}
+          handleHomeClick={handleHomeClick}
           handleProjectClick={handleProjectClick}
           handleCollectionClick={handleCollectionClick}
           page={page}

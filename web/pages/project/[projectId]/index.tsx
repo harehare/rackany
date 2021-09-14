@@ -12,9 +12,8 @@ const Index: React.VFC = () => {
   const router = useRouter();
   const { projectId } = router.query;
   const { data, loading, error } = useProjectQuery({
-    ssr: false,
     variables: {
-      id: projectId as string,
+      id: projectId && (projectId as string),
     },
   });
   const setPage = usePageDispatch();

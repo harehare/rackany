@@ -1,3 +1,4 @@
+import React from "react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import Layout from "../components/shared/Layout";
@@ -36,9 +37,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 stopDelayMs={400}
                 height={3}
               />
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <React.StrictMode>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </React.StrictMode>
             </ModalProvider>
           </AuthorizedApolloProvider>
         </ContextProvider>

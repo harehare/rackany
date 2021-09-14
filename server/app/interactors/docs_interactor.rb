@@ -1,4 +1,4 @@
-class DocsInteractor < Interactor
+class DocsInteractor < Struct.new(:data)
   class << self
     include ReadInteractor
     include ReadWithAuthInteractor

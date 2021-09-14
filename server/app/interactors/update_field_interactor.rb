@@ -1,4 +1,4 @@
-class UpdateFieldInteractor < Interactor
+class UpdateFieldInteractor < Struct.new(:data)
   class << self
     include WriteInteractor
 

@@ -1,4 +1,4 @@
-class CreateFieldInteractor < Interactor
+class CreateFieldInteractor < Struct.new(:data)
   class << self
     include WriteInteractor
 

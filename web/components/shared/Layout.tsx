@@ -2,13 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Header from "components/shared/Header";
 import { useRequiredLogin } from "hooks/useRequiredLogin";
-import { useRouter } from "next/router";
 import { usePageState } from "lib/context/PageContext";
-import {
-  useCollectionLazyQuery,
-  useProjectLazyQuery,
-} from "lib/generated/client";
-import { useAuth0 } from "@auth0/auth0-react";
 
 interface Props {
   children: React.ReactNode;
