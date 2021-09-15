@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import media from "styled-media-query";
 
 interface Props {
   name: string;
@@ -21,6 +22,11 @@ const Container = styled.div`
   cursor: pointer;
   position: relative;
   overflow-y: scroll;
+  ${media.lessThan("medium")`
+    width: 45%;
+    flex-basis: 45%;
+    height: 160px;
+  `}
   &:hover {
     &:after {
       content: "";
