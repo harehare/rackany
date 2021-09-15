@@ -1,4 +1,4 @@
-class GetCollectionInteractor < Struct.new(:data)
+class GetCollectionInteractor < Interactor
   class << self
     include ReadInteractor
 

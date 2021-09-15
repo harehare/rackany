@@ -3,6 +3,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import media from "styled-media-query";
 
 interface Props {
   href: string;
@@ -24,6 +25,11 @@ const Container = styled.div`
   margin: 0 16px 16px 0;
   transition: transform 0.1s;
   position: relative;
+  ${media.lessThan("medium")`
+    width: 45%;
+    flex-basis: 45%;
+    height: 160px;
+  `}
   &:hover {
     &:after {
       content: "";

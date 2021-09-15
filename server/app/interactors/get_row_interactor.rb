@@ -5,7 +5,7 @@ require 'barby/barcode/code_128'
 require 'barby/outputter/png_outputter'
 require './domain/rack_content/rack_content'
 
-class GetRowInteractor < Struct.new(:data)
+class GetRowInteractor < Interactor
   class << self
     include ReadInteractor
 

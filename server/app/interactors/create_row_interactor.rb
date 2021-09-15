@@ -1,6 +1,6 @@
 require './domain/rack_content/rack_content'
 
-class CreateRowInteractor < Struct.new(:data)
+class CreateRowInteractor < Interactor
   class << self
     include WriteInteractor
 

@@ -1,6 +1,6 @@
 require './domain/rack_content/rack_content'
 
-class DeleteFieldInteractor < Struct.new(:data)
+class DeleteFieldInteractor < Interactor
   class << self
     include WriteInteractor
 

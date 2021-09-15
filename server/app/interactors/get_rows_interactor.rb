@@ -1,6 +1,6 @@
 require './domain/rack_content/rack_content'
 
-class GetRowsInteractor < Struct.new(:data)
+class GetRowsInteractor < Interactor
   class << self
     include ReadInteractor
 
