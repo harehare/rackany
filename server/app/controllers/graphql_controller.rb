@@ -5,10 +5,9 @@ class GraphqlController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize
   def execute
-    claims = verify_token(request)
+    user_id = verify_token(request)
     query = params[:query]
     variables = prepare_variables(params[:variables])
-    user_id = claims.first['sub'] if claims.present?
     context = {
       current_user_id: user_id
     }

@@ -4,7 +4,7 @@ class CreateRowInteractor < Interactor
   class << self
     include WriteInteractor
 
-    def execute(params, collection, fields)
+    def execute(params, _, collection, fields)
       rack_row = Firestore::RackRow.create(collection.id, fields.values)
       body = params.each_with_object({}) do |(key, value), arr|
         arr[key] = value if fields.include?(key)

@@ -9,7 +9,7 @@ class GetRowInteractor < Interactor
   class << self
     include ReadInteractor
 
-    def execute(params, collection, fields)
+    def execute(params, _, collection, fields)
       field_values = fields.values
       stored_fields = field_values.each_with_object({}) do |field, arr|
         arr[field.name] = field if field.stored

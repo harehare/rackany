@@ -4,7 +4,7 @@ class DeleteFieldInteractor < Interactor
   class << self
     include WriteInteractor
 
-    def execute(params, _, _)
+    def execute(params, _, _, _)
       field_id = params[:field_id]
       RackField.delete(field_id)
       field_id

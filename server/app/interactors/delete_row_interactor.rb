@@ -4,7 +4,7 @@ class DeleteRowInteractor < Interactor
   class << self
     include WriteInteractor
 
-    def execute(params, collection, fields)
+    def execute(params, _, collection, fields)
       collection_id = collection.id
       field_values = fields.values
       rack_row_id = params[:rack_row_id]

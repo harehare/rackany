@@ -3,6 +3,8 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
+    field :user, resolver: Queries::UserQueries::UserQuery
+
     field :projects, resolver: Queries::ProjectQueries::ProjectsQuery
     field :project,  resolver: Queries::ProjectQueries::ProjectQuery
 

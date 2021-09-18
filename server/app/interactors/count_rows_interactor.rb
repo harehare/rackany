@@ -4,7 +4,7 @@ class CountRowsInteractor < Interactor
   class << self
     include ReadInteractor
 
-    def execute(_, collection, _)
+    def execute(_, _, collection, _)
       Firestore::RackRow.count(collection.id)
     end
 

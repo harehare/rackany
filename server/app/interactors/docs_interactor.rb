@@ -16,7 +16,7 @@ class DocsInteractor < Interactor
       UpdateRowInteractor,
     ].freeze
 
-    def execute(params, collection, fields)
+    def execute(params, _, collection, fields)
       paths = SWAGGER_DOCS.each_with_object({}) do |doc, arr|
         swagger_doc = doc.swagger(params, collection, fields)
         path = swagger_doc[:path]

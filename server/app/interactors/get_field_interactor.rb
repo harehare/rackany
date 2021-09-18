@@ -4,7 +4,7 @@ class GetFieldInteractor < Interactor
   class << self
     include ReadInteractor
 
-    def execute(params, _, fields)
+    def execute(params, _, _, fields)
       result = fields.filter do |field|
         params[:field_id] == field.id
       end

@@ -1,9 +1,9 @@
-class GetProjectInteractor < Interactor
+class GetUserInteractor < Interactor
   class << self
     include ReadInteractor
 
     def execute(params, _, _, _)
-      Project.find(params[:project_id])
+      User.find(params[:user_id])
     end
 
   end

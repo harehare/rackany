@@ -10,7 +10,7 @@ class CreateFieldInteractor < Interactor
       field
     end
 
-    def swagger(params, _, _)
+    def swagger(params, _, _, _)
       {
         path: "/api/v1/#{params[:collection_name]}/fields",
         methods: {

@@ -1,9 +1,22 @@
 module Authorization
   def verify_token(request)
-    auth_token(http_token(request))
+    bearer = bearer_token(request)
+    return verify_bearer_token(bearer) if bearer.present?
+    api_key = api_key_token(request)
+    verify_api_key(api_key) if api_key.present?
   rescue JWT::VerificationError, JWT::DecodeError => e
     logger.error(e.message)
     raise GraphqlErrors::AuthenticationError, 'Not Authenticated'
+  end
+
+  def verify_bearer_token(token)
+    claims = auth_bearer_token(token)
+    claims.first['sub'] if claims.present?
+  end
+
+  def verify_api_key(api_key)
+    user = User.find_by({api_key: api_key})
+    user.id unless user.nil?
   end
 
   def authenticate_owner!(context, project_id, collection_id = nil)
@@ -25,11 +38,17 @@ module Authorization
     raise GraphqlErrors::NotFoundError, 'No Project Owner' unless project.user_id == context[:current_user_id]
   end
 
-  def http_token(request)
-    request.headers['Authorization'].split(' ').last if request.headers['Authorization'].present?
+  def bearer_token(request)
+    tokens = request.headers['Authorization'].split(' ')
+    tokens.last if request.headers['Authorization'].present? && tokens.first.downcase == "bearer"
   end
 
-  def auth_token(bearer_token)
+  def api_key_token(request)
+    tokens = request.headers['Authorization'].split(' ')
+    tokens.last if request.headers['Authorization'].present? && tokens.first.downcase == "x-api-key"
+  end
+
+  def auth_bearer_token(bearer_token)
     JsonWebToken.verify(bearer_token) if bearer_token.present?
   end
 end

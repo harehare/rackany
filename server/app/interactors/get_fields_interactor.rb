@@ -4,7 +4,7 @@ class GetFieldsInteractor < Interactor
   class << self
     include ReadInteractor
 
-    def execute(_, _, _)
+    def execute(_, _, _, _)
       fields.values.map do |field|
         {
           id: field.id,
