@@ -3,13 +3,10 @@ import Head from "next/head";
 import NewProject from "components/pages/project/New";
 import Title from "components/shared/Title";
 import { usePageDispatch } from "lib/context/PageContext";
-import {
-  ProjectsDocument,
-  useCreateProjectMutation,
-} from "lib/generated/client";
+import { useCreateProjectMutation } from "lib/generated/client";
 import { useRouter } from "next/router";
 import { errorNotify, successNotify } from "lib/notify";
-import gql from "graphql-tag";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const New: React.VFC = () => {
   const [createProject] = useCreateProjectMutation();
@@ -49,5 +46,13 @@ const New: React.VFC = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default New;

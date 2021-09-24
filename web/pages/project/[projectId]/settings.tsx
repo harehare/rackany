@@ -16,9 +16,12 @@ import {
   useUpdateProjectMutation,
 } from "lib/generated/client";
 import { errorNotify, successNotify } from "lib/notify";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Settings: React.VFC = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const [tabIndex, setTabIndex] = useState(0);
   const { projectId } = router.query;
   const {
@@ -76,7 +79,7 @@ const Settings: React.VFC = () => {
     });
 
     await router.replace(`/project`);
-    successNotify(`Successfully deleted project`);
+    successNotify(t("message_delete_project"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deleteProject]);
   const setPage = usePageDispatch();
@@ -134,5 +137,13 @@ const Settings: React.VFC = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default Settings;

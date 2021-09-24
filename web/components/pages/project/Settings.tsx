@@ -14,6 +14,7 @@ import { Project } from "lib/generated/client";
 import DangerZone from "components/shared/DangerZone";
 import DeleteModal from "components/shared/DeleteModal";
 import Loading from "components/shared/Loading";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   project?: Project;
@@ -27,6 +28,7 @@ const Info: React.VFC<Props> = ({ project, onSubmit, onDeleteClick }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { t } = useTranslation();
 
   const [showModal, hideModal] = useModal(() => (
     <DeleteModal
@@ -45,38 +47,38 @@ const Info: React.VFC<Props> = ({ project, onSubmit, onDeleteClick }) => {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
-        <Label>Name</Label>
+        <Label>{t("name")}</Label>
         <Input
           {...register("name", { required: true })}
           defaultValue={project.name}
         />
-        {errors.name && <Error>Name is required</Error>}
+        {errors.name && <Error>{t("required_name")}</Error>}
       </FormControl>
 
       <FormControl>
-        <Label>Display Name</Label>
+        <Label>{t("display_name")}</Label>
         <Input
           {...register("displayName", { required: true })}
           defaultValue={project.displayName}
         />
-        {errors.name && <Error>Display Name is required</Error>}
+        {errors.name && <Error>{t("required_display_name")}</Error>}
       </FormControl>
 
       <FormControl>
-        <Label>Description</Label>
+        <Label>{t("description")}</Label>
         <TextArea
           {...register("description", { required: true })}
           defaultValue={project.description}
         />
-        {errors.description && <Error>Description is required</Error>}
+        {errors.description && <Error>{t("required_description")}</Error>}
       </FormControl>
       <DangerZone
-        title="Delete this project"
-        buttonTitle="Delete project"
-        description="Once you delete a project, there is no going back. Please be certain."
+        title={t("delete_this_project_title")}
+        buttonTitle={t("delete_project_title")}
+        description={t("delete_project_description")}
         onClick={showModal}
       ></DangerZone>
-      <Submit>Update</Submit>
+      <Submit>{t("update")}</Submit>
     </Form>
   );
 };

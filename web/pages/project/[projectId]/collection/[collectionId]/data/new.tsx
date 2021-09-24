@@ -14,6 +14,8 @@ import {
 } from "lib/generated/client";
 import { toError } from "graphql/error/error";
 import { errorNotify, successNotify } from "lib/notify";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 
 const New: React.VFC = () => {
   const router = useRouter();
@@ -30,6 +32,7 @@ const New: React.VFC = () => {
     },
   });
   const [createRow] = useCreateRackRowMutation();
+  const { t } = useTranslation();
   const onSubmit = useCallback(
     async (data) => {
       await createRow({
@@ -43,10 +46,10 @@ const New: React.VFC = () => {
           await router.replace(
             `/project/${projectId}/collection/${collectionId as string}`
           );
-          successNotify(`Successfully created row`);
+          successNotify(t("message_successfully_create_row"));
         })
         .catch(() => {
-          errorNotify(`Failed to create row`);
+          errorNotify(t("message_failed_to_create_row"));
         });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -83,5 +86,13 @@ const New: React.VFC = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default New;

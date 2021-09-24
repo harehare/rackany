@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 import "styles/tabs.css";
 import "styles/globals.css";
 import ContextProvider from "lib/context";
+import { appWithTranslation } from "next-i18next";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -51,4 +52,4 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default MyApp;
+export default appWithTranslation(MyApp);

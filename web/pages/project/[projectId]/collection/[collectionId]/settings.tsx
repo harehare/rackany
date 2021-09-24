@@ -14,9 +14,12 @@ import {
 } from "lib/generated/client";
 import { toError } from "graphql/error/error";
 import { errorNotify, successNotify } from "lib/notify";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 
 const Settings: React.VFC = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const { projectId, collectionId } = router.query;
   const {
     loading,
@@ -86,7 +89,7 @@ const Settings: React.VFC = () => {
       },
     });
     await router.replace(`/project/${projectId}`);
-    successNotify(`Successfully deleted`);
+    successNotify(t("message_delete_collection"));
   };
 
   const collectionName = collection
@@ -126,5 +129,13 @@ const Settings: React.VFC = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default Settings;

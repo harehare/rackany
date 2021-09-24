@@ -9,9 +9,12 @@ import { usePageDispatch } from "lib/context/PageContext";
 import { useCollectionQuery, useSaveFieldMutation } from "lib/generated/client";
 import { toError } from "graphql/error/error";
 import { errorNotify, successNotify } from "lib/notify";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 
 const New: React.VFC = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const { projectId, collectionId } = router.query;
   const {
     loading,
@@ -78,10 +81,10 @@ const New: React.VFC = () => {
           await router.replace(
             `/project/${projectId}/collection/${collection?.collection.id}`
           );
-          successNotify(`Successfully created data`);
+          successNotify(t("message_successfully_created_data"));
         })
         .catch(() => {
-          errorNotify(`Failed to create data`);
+          errorNotify(t("message_failed_to_create_data"));
         });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -104,5 +107,13 @@ const New: React.VFC = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default New;

@@ -15,6 +15,7 @@ import { RackField } from "lib/generated/client";
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
 import { Fields } from "components/pages/field/fields/Fields";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   field: RackField;
@@ -35,6 +36,7 @@ const EditField: React.VFC<Props> = ({ field, onSubmit }) => {
     setValue,
     formState: { errors },
   } = useForm();
+  const { t } = useTranslation();
 
   const handleChange = (name: string) => (e) => {
     setValue(name, e.target.checked);
@@ -49,10 +51,10 @@ const EditField: React.VFC<Props> = ({ field, onSubmit }) => {
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
-        <Label>Name</Label>
+        <Label>{t("name")}</Label>
         <Input
           {...register("name", {
-            required: "Name is required",
+            required: t("required_name") as string,
             pattern: {
               value: /^[0-9a-zA-Z\.\-\_]+$/,
               message: "Invalid name",
@@ -69,7 +71,7 @@ const EditField: React.VFC<Props> = ({ field, onSubmit }) => {
         {errors.name && <Error>Name is required</Error>}
       </FormControl>
       <FormControl>
-        <Label>Display Name</Label>
+        <Label>{t("display_name")}</Label>
         <Input
           {...register("displayName", { required: true })}
           defaultValue={field.displayName}
@@ -77,12 +79,12 @@ const EditField: React.VFC<Props> = ({ field, onSubmit }) => {
         {errors.displayName && <Error>Display Name is required</Error>}
       </FormControl>
       <FormControl>
-        <Label>Description</Label>
+        <Label>{t("description")}</Label>
         <Input {...register("description")} defaultValue={field.description} />
         {errors.description && <Error>Description is required</Error>}
       </FormControl>
       <FormControl>
-        <Label>Field Type</Label>
+        <Label>{t("field_type")}</Label>
         <Fields
           selectedFieldType={field.fieldType}
           disabled={true}
@@ -98,7 +100,7 @@ const EditField: React.VFC<Props> = ({ field, onSubmit }) => {
             defaultChecked={field.sortable}
             onChange={handleChange("sortable")}
           />
-          <span>Sortable</span>
+          <span>{t("sortable")}</span>
         </ToggleLabel>
         <ToggleLabel>
           <Toggle
@@ -106,7 +108,7 @@ const EditField: React.VFC<Props> = ({ field, onSubmit }) => {
             defaultChecked={field.stored}
             onChange={handleChange("stored")}
           />
-          <span>Stored</span>
+          <span>{t("stored")}</span>
         </ToggleLabel>
         <ToggleLabel>
           <Toggle
@@ -114,10 +116,10 @@ const EditField: React.VFC<Props> = ({ field, onSubmit }) => {
             defaultChecked={field.requiredField}
             onChange={handleChange("requiredField")}
           />
-          <span>Required</span>
+          <span>{t("required")}</span>
         </ToggleLabel>
       </HFormControl>
-      <Submit>Update</Submit>
+      <Submit>{t("update")}</Submit>
     </Form>
   );
 };

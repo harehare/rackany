@@ -27,6 +27,7 @@ import {
   BarcodeLabel,
   QrCodeLabel,
 } from "components/shared/FieldLabel";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   projectId: string;
@@ -94,6 +95,7 @@ const CollectionItem: React.VFC<Props> = ({
     isChanged: false,
   });
   const router = useRouter();
+  const { t } = useTranslation();
 
   const handleDrop = async (srcIndex: number, destIndex: number) => {
     const rackFields = { ...state.collection }.rackFields.slice();
@@ -226,7 +228,7 @@ const CollectionItem: React.VFC<Props> = ({
           onClick={() => handleSaveChanges(state.collection?.rackFields)}
           disabled={!state.isChanged}
         >
-          Save Changes
+          {t("save_changes")}
         </ActionButton>
       </ButtonContainer>
     </Container>

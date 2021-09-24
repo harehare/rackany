@@ -15,10 +15,13 @@ import {
 } from "lib/generated/client";
 import { toError } from "graphql/error/error";
 import { errorNotify, successNotify } from "lib/notify";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 
 const Edit: React.VFC = () => {
   const router = useRouter();
   const { projectId, collectionId, rackRowId } = router.query;
+  const { t } = useTranslation();
   const {
     loading: collectionLoading,
     error: collectionError,
@@ -76,10 +79,10 @@ const Edit: React.VFC = () => {
           await router.replace(
             `/project/${projectId}/collection/${collection?.collection.id}`
           );
-          successNotify(`Successfully updated row`);
+          successNotify(t("message_successfully_to_update_row"));
         })
         .catch(() => {
-          errorNotify(`Failed to update row`);
+          errorNotify(t("message_failed_to_update_row"));
         });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -122,12 +125,20 @@ const Edit: React.VFC = () => {
             await router.replace(
               `/project/${projectId}/collection/${collection?.collection.id}`
             );
-            successNotify(`Successfully deleted data`);
+            successNotify(t("message_successfully_delete_data"));
           }}
         />
       )}
     </>
   );
 };
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default Edit;

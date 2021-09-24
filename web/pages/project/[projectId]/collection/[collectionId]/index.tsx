@@ -23,6 +23,8 @@ import { useSaveFieldMutation } from "lib/generated/client";
 import { toError } from "graphql/error/error";
 import { errorNotify, successNotify } from "lib/notify";
 import { Order, toRackRowOrder } from "lib/types/order";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   position: relative;
@@ -33,6 +35,7 @@ const Container = styled.div`
 const Index: React.VFC = () => {
   const router = useRouter();
   const [tabIndex, setTabIndex] = useState(0);
+  const { t } = useTranslation();
   const { projectId, collectionId, page } = router.query;
   const pageNo =
     page && !isNaN(parseInt(page as string)) ? parseInt(page as string) : 1;
@@ -69,7 +72,7 @@ const Index: React.VFC = () => {
         },
       })
         .then(async () => {
-          successNotify(`Successfully updated fields`);
+          successNotify(t("message_successfully_updated_fields"));
           await router.replace(
             `/project/${projectId as string}/collection/${
               collectionId as string
@@ -77,7 +80,7 @@ const Index: React.VFC = () => {
           );
         })
         .catch(() => {
-          errorNotify(`Failed to updated fields`);
+          errorNotify(t("message_failed_updated_fields"));
         });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -186,5 +189,13 @@ const Index: React.VFC = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default Index;

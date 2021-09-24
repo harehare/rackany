@@ -9,9 +9,12 @@ import { usePageDispatch } from "lib/context/PageContext";
 import { useCollectionQuery, useSaveFieldMutation } from "lib/generated/client";
 import { toError } from "graphql/error/error";
 import { errorNotify, successNotify } from "lib/notify";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 
 const Edit: React.VFC = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const { projectId, collectionId, fieldId } = router.query;
   const {
     loading,
@@ -85,10 +88,10 @@ const Edit: React.VFC = () => {
         await router.replace(
           `/project/${projectId}/collection/${collection?.collection.id}`
         );
-        successNotify(`Successfully updated fields ${editData.displayName}`);
+        successNotify(t("message_successfully_updated_fields"));
       })
       .catch(() => {
-        errorNotify(`Failed to update fields ${editData.displayName}`);
+        errorNotify(t("message_failed_updated_fields"));
       });
   };
 
@@ -102,5 +105,13 @@ const Edit: React.VFC = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default Edit;

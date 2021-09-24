@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { usePageDispatch } from "lib/context/PageContext";
 import { useCreateApiKeyMutation, useProjectQuery } from "lib/generated/client";
 import { errorNotify, successNotify } from "lib/notify";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "react-i18next";
 
 const New: React.VFC = () => {
   const router = useRouter();
@@ -16,6 +18,7 @@ const New: React.VFC = () => {
     },
   });
   const [createApiKey, _] = useCreateApiKeyMutation();
+  const { t } = useTranslation();
   const setPage = usePageDispatch();
   setPage({
     // @ts-expect-error
@@ -34,11 +37,11 @@ const New: React.VFC = () => {
         },
       },
     }).catch(() => {
-      errorNotify(`Failed to create api key`);
+      errorNotify(t("message_failed_to_create_api_key"));
     });
 
     await router.replace(`/project/${projectId}/settings`);
-    successNotify(`Successfully create api key`);
+    successNotify(t("message_successfully_to_create_api_key"));
   };
 
   return (
@@ -51,5 +54,13 @@ const New: React.VFC = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default New;

@@ -10,6 +10,7 @@ import {
   useProjectQuery,
 } from "lib/generated/client";
 import { errorNotify, successNotify } from "lib/notify";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const New: React.VFC = () => {
   const router = useRouter();
@@ -67,5 +68,13 @@ const New: React.VFC = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default New;

@@ -1,0 +1,44 @@
+{
+  "name": "Name",
+  "display_name": "Display Name",
+  "description": "Description",
+  "field_type": "Field Type",
+  "sortable": "Sortable",
+  "stored": "Stored",
+  "required": "Required",
+  "create": "Create",
+  "edit": "Edit",
+  "update": "Update",
+  "save_changes": "Save Changes",
+  "default_sort_by": "Default sort by",
+  "asc": "Asc",
+  "desc": "Desc",
+
+  "delete_this_collection_title": "Delete this collection",
+  "delete_collection_title": "Delete collection",
+  "delete_collection_description": "Once you delete a collection, there is no going back. Please be certain.",
+
+  "delete_this_project_title": "Delete this project",
+  "delete_project_title": "Delete project",
+  "delete_project_description": "Once you delete a project, there is no going back. Please be certain.",
+
+  "required_name": "Name is required",
+  "required_display_name": "Display Name is required",
+  "required_description": "Description is required",
+
+  "message_delete_project": "Successfully deleted project",
+  "message_delete_collection": "Successfully deleted collection",
+
+  "message_successfully_created_data": "Successfully created data",
+  "message_successfully_to_create_api_key": "Successfully create api key",
+  "message_successfully_to_update_row": "Successfully updated row",
+  "message_successfully_delete_data": "Successfully deleted data",
+  "message_successfully_create_row": "Successfully created row",
+  "message_successfully_updated_fields": "Successfully updated fields",
+
+  "message_failed_to_create_api_key": "Failed to create api key",
+  "message_failed_to_create_data": "Failed to create data",
+  "message_failed_to_update_row": "Failed to update row",
+  "message_failed_to_create_row": "Failed to create row",
+  "message_failed_updated_fields": "Failed to updated fields"
+}

@@ -14,6 +14,7 @@ import Toggle from "react-toggle";
 import "react-toggle/style.css";
 import { Fields } from "components/pages/field/fields/Fields";
 import { systemFields } from "lib/types/rack-row";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   onSubmit: (data: any) => void;
@@ -33,6 +34,7 @@ const NewField: React.VFC<Props> = ({ onSubmit }) => {
     setValue,
     formState: { errors },
   } = useForm();
+  const { t } = useTranslation();
 
   const handleChange = (name: string) => (e) => {
     setValue(name, e.target.checked);
@@ -44,7 +46,7 @@ const NewField: React.VFC<Props> = ({ onSubmit }) => {
         <Label>Name</Label>
         <Input
           {...register("name", {
-            required: "Name is required",
+            required: t("required_name") as string,
             pattern: {
               value: /^[0-9a-zA-Z\.\-\_]+$/,
               message: "Invalid name",
@@ -66,12 +68,12 @@ const NewField: React.VFC<Props> = ({ onSubmit }) => {
             required: true,
           })}
         />
-        {errors.displayName && <Error>Display Name is required</Error>}
+        {errors.displayName && <Error>{t("required_display_name")}</Error>}
       </FormControl>
       <FormControl>
         <Label>Description</Label>
         <Input {...register("description")} />
-        {errors.description && <Error>Description is required</Error>}
+        {errors.description && <Error>{t("required_description")}</Error>}
       </FormControl>
       <FormControl>
         <Label>Field Type</Label>

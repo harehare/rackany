@@ -15,6 +15,7 @@ import {
 import DangerZone from "components/shared/DangerZone";
 import { Collection } from "lib/generated/client";
 import DeleteModal from "components/shared/DeleteModal";
+import { useTranslation } from "next-i18next";
 
 interface Props {
   collection: Collection;
@@ -38,6 +39,7 @@ const Settings: React.VFC<Props> = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { t } = useTranslation();
   const [showModal, hideModal] = useModal(() => (
     <DeleteModal
       kind="collection"
@@ -55,31 +57,31 @@ const Settings: React.VFC<Props> = ({
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
-        <Label>Name</Label>
+        <Label>{t("name")}</Label>
         <Input
           {...register("name", { required: true })}
           defaultValue={collection.name}
         />
-        {errors.name && <Error>Name is required</Error>}
+        {errors.name && <Error>{t("required_name")}</Error>}
       </FormControl>
       <FormControl>
-        <Label>Display Name</Label>
+        <Label>{t("display_name")}</Label>
         <Input
           {...register("displayName", { required: true })}
           defaultValue={collection.displayName}
         />
-        {errors.name && <Error>Display Name is required</Error>}
+        {errors.name && <Error>{t("required_display_name")}</Error>}
       </FormControl>
       <FormControl>
-        <Label>Description</Label>
+        <Label>{t("description")}</Label>
         <TextArea
           {...register("description", { required: true })}
           defaultValue={collection.description}
         />
-        {errors.description && <Error>Description is required</Error>}
+        {errors.description && <Error>{t("required_description")}</Error>}
       </FormControl>
       <FormControl>
-        <Label>Default sort by</Label>
+        <Label>{t("default_sort_by")}</Label>
         <Container>
           <Select
             {...register("defaultSortField")}
@@ -95,7 +97,7 @@ const Settings: React.VFC<Props> = ({
             {...register("defaultSortDirection")}
             defaultValue={collection.defaultSortDirection}
           >
-            {["Asc", "Desc"].map((d) => (
+            {[t("asc"), t("desc")].map((d) => (
               <option key={d} value={d.toUpperCase()}>
                 {d}
               </option>
@@ -104,12 +106,12 @@ const Settings: React.VFC<Props> = ({
         </Container>
       </FormControl>
       <DangerZone
-        title="Delete this collection"
-        buttonTitle="Delete collection"
-        description="Once you delete a collection, there is no going back. Please be certain."
+        title={t("delete_this_collection_title")}
+        buttonTitle={t("delete_collection_title")}
+        description={t("delete_collection_description")}
         onClick={showModal}
       ></DangerZone>
-      <Submit>Edit</Submit>
+      <Submit>{t("Edit")}</Submit>
     </Form>
   );
 };
