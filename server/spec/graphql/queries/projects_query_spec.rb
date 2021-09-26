@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Queries::ProjectQueries::ProjectsQuery do
   describe 'projects query' do
+
+    let!(:user) { sign_up('test_id') }
+    let!(:project) { create_project('test_id') }
+
     it 'query succeed' do
-      sign_up('test_id')
-      project = create_project('test_id')
       projects = query_projects('test_id')
 
       expect(projects.length).to eq 1

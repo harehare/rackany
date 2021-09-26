@@ -2,11 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Mutations::RackRowMutations::CreateRackRow do
   describe 'create save data rows' do
+
+    let(:project) { create_project('test_id') }
+    let(:collection) { create_collection('test_id', project[:id]) }
+    let(:rack_fields) { create_rack_fields('test_id', project[:id], collection[:id]) }
+
     it 'create succeed' do
       sign_up('test_id')
-      project = create_project('test_id')
-      collection = create_collection('test_id', project[:id])
-      rack_fields = create_rack_fields('test_id', project[:id], collection[:id])
       result = create_rack_rows('test_id', project[:id], collection[:id], rack_fields)
 
       expect(result[:data]["textField"]).to eq field_type_value('TEXT')
